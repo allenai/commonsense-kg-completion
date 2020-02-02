@@ -4,10 +4,6 @@
  <img src="figures/completion.png" width="500">
 </p>
 
-<p align="center">
-  <b>Chaitanya Malaviya, Chandra Bhagavatula, Antoine Bosselut, Yejin Choi</b></span>
-</p>
-
 Code for the paper [Commonsense Knowledge Base Completion with Structural and Semantic Context](https://arxiv.org/pdf/1910.02915.pdf). 
 
 ## Bibtex
