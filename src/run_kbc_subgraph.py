@@ -180,7 +180,7 @@ def main(args):
         if args.load_model:
             model_state_file = args.load_model
         else:
-            print("Please provide model path for evaluation (--load_mode)")
+            print("Please provide model path for evaluation (--load_model)")
             sys.exit(0)
 
         checkpoint = torch.load(model_state_file)
@@ -308,8 +308,8 @@ def main(args):
 
             # compute graph embeddings
             graph_embeddings = model.get_graph_embeddings(g, epoch)
-            model.decoder.module.cur_embedding = graph_embeddings
-            #model.decoder.cur_embedding = graph_embeddings
+            #model.decoder.module.cur_embedding = graph_embeddings
+            model.decoder.cur_embedding = graph_embeddings
 
             batch = key_list[i: i + batch_size]
 
@@ -513,7 +513,7 @@ if __name__ == '__main__':
                         help="number of hidden units")
     parser.add_argument("--use_bias", action='store_true', default=False,
                         help="use bias")
-    parser.add_argument("--regularization", type=float, default=0.05,
+    parser.add_argument("--regularization", type=float, default=0.1,
                         help="regularization weight")
     parser.add_argument("--grad-norm", type=float, default=1.0,
                         help="norm to clip gradient to")

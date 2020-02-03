@@ -58,15 +58,20 @@ We provide the fine-tuned BERT models and pre-computed BERT embeddings for both 
 If you unzip the downloaded file in the root directory of the repository, the training script will load the embeddings.
 
 We also provide the pre-trained KB completion models for both datasets for ease of use.
-Link to Conceptnet [model]() and ATOMIC [model]().
+Link to Conceptnet [model](https://drive.google.com/file/d/1X8AP6f4VEYddaemY9cpEgPNy1awglmv1/view?usp=sharing) and ATOMIC [model]().
 
 ## Evaluation
-To evaluate a trained model and get predictions, use the following command:
+To evaluate a trained model, and get predictions, provide the model path to the `--load_model` argument and use the `--eval_only` argument. 
+For example, to evaluate the pre-trained ConceptNet model provided above, use the following command:
 ```bash
-CUDA_VISIBLE_DEVICES={GPU_ID} python src/run_kbc_subgraph.py --dataset conceptnet --graph-batch-size 30000 --sim_relations --bert_concat --use_bias --load_model {PATH_TO_PRETRAINED_MODEL} --eval_only --write_results
+CUDA_VISIBLE_DEVICES={GPU_ID} python src/run_kbc_subgraph.py --dataset conceptnet --sim_relations --bert_concat --use_bias --load_model {PATH_TO_PRETRAINED_MODEL} --eval_only --write_results
 ```
 This will load the pre-trained model, and evaluate it on the validation and test set. The predictions are saved to `./topk_results.json`.
 
+Similarly, to evaluate the trained model on ATOMIC, use the following command:
+```bash
+CUDA_VISIBLE_DEVICES={GPU_ID} python src/run_kbc_subgraph.py --dataset atomic --sim_relations --use_bias --load_model {PATH_TO_PRETRAINED_MODEL} --eval_only --write_results
+```
 
 Please email me at chaitanyam@allenai.org for any questions.
 

@@ -231,7 +231,10 @@ class ConvTransE(nn.Module):
 
     def forward(self, e1, rel, target):
 
-        embedding = self.cur_embedding.to(torch.cuda.current_device())
+        embedding = self.cur_embedding
+        if not self.no_cuda:
+            embedding = embedding.to(torch.cuda.current_device())
+        
         batch_size = e1.shape[0]
 
         e1 = e1.unsqueeze(1)
