@@ -37,7 +37,7 @@ from the two development sets provided in the original dataset while `test.txt` 
 To train a model, run the following command:
 ```bash
 python -u src/run_kbc_subgraph.py --dataset conceptnet --evaluate-every 10 --n-layers 2
---graph-batch-size 30000 --sim_relations --bert_concat --regularization 0.1
+--graph-batch-size 30000 --sim_relations --bert_concat
 ```
 
 This trains the model and saves the model under the `saved_models` directory.
@@ -73,5 +73,5 @@ Similarly, to evaluate the trained model on ATOMIC, use the following command:
 CUDA_VISIBLE_DEVICES={GPU_ID} python src/run_kbc_subgraph.py --dataset atomic --sim_relations --use_bias --load_model {PATH_TO_PRETRAINED_MODEL} --eval_only --write_results
 ```
 
-Please email me at chaitanyam@allenai.org for any questions.
+Please email me at chaitanyam@allenai.org for any questions or comments.
 
