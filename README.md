@@ -58,7 +58,7 @@ We provide the fine-tuned BERT models and pre-computed BERT embeddings for both 
 If you unzip the downloaded file in the root directory of the repository, the training script will load the embeddings.
 
 We also provide the pre-trained KB completion models for both datasets for ease of use.
-Link to Conceptnet [model](https://drive.google.com/file/d/1X8AP6f4VEYddaemY9cpEgPNy1awglmv1/view?usp=sharing) and ATOMIC [model]().
+Link to Conceptnet [model](https://drive.google.com/file/d/1X8AP6f4VEYddaemY9cpEgPNy1awglmv1/view?usp=sharing) and ATOMIC [model](https://drive.google.com/file/d/1JXl8RFHui6y6sR33C9rMQs00awjL7tcY/view?usp=sharing).
 
 ## Evaluation
 To evaluate a trained model, and get predictions, provide the model path to the `--load_model` argument and use the `--eval_only` argument. 
