@@ -36,8 +36,7 @@ from the two development sets provided in the original dataset while `test.txt` 
 ## Training 
 To train a model, run the following command:
 ```bash
-python -u src/run_kbc_subgraph.py --dataset conceptnet --evaluate-every 10 --n-layers 2
---graph-batch-size 30000 --sim_relations --bert_concat
+python -u src/run_kbc_subgraph.py --dataset conceptnet --evaluate-every 10 --n-layers 2 --graph-batch-size 60000 --sim_relations --bert_concat
 ```
 
 This trains the model and saves the model under the `saved_models` directory.
