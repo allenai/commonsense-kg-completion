@@ -30,7 +30,7 @@ from torch.utils.data.distributed import DistributedSampler
 from tqdm import tqdm, trange
 
 from transformers import BertTokenizer, BertModel, BertForPreTraining
-from transformers import AdamW, WarmupLinearSchedule
+from transformers import AdamW, get_linear_schedule_with_warmup
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
                     datefmt='%m/%d/%Y %H:%M:%S',
@@ -296,7 +296,7 @@ def random_word(tokens, tokenizer):
                 logger.warning("Cannot find token '{}' in vocab. Using [UNK] insetad".format(token))
         else:
             # no masking token (will be ignored by loss function later)
-            output_label.append(-1)
+            output_label.append(-100)
 
     return tokens, output_label
 
@@ -320,7 +320,7 @@ def convert_example_to_features(example, max_seq_length, tokenizer):
     tokens_a, t1_label = random_word(tokens_a, tokenizer)
     tokens_b, t2_label = random_word(tokens_b, tokenizer)
     # concatenate lm labels and account for CLS, SEP, SEP
-    lm_label_ids = ([-1] + t1_label + [-1] + t2_label + [-1])
+    lm_label_ids = ([-100] + t1_label + [-100] + t2_label + [-100])
 
     # The convention in BERT is:
     # (a) For sequence pairs:
@@ -368,7 +368,7 @@ def convert_example_to_features(example, max_seq_length, tokenizer):
         input_ids.append(0)
         input_mask.append(0)
         segment_ids.append(0)
-        lm_label_ids.append(-1)
+        lm_label_ids.append(-100)
 
     assert len(input_ids) == max_seq_length
     assert len(input_mask) == max_seq_length
@@ -561,7 +561,7 @@ def main():
 
         else:
             optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
-        scheduler = WarmupLinearSchedule(optimizer, warmup_steps=args.warmup_steps, t_total=num_train_optimization_steps)
+        scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=args.warmup_steps, num_training_steps=num_train_optimization_steps)
 
     global_step = 0
     if args.do_train:
@@ -585,7 +585,7 @@ def main():
             for step, batch in enumerate(tqdm(train_dataloader, desc="Iteration")):
                 batch = tuple(t.to(device) for t in batch)
                 input_ids, input_mask, segment_ids, lm_label_ids, is_next = batch
-                outputs = model(input_ids, segment_ids, input_mask, lm_label_ids, is_next)
+                outputs = model(input_ids, segment_ids, input_mask, labels=lm_label_ids, next_sentence_label=is_next)
                 loss = outputs[0]
                 if n_gpu > 1:
                     loss = loss.mean() # mean() to average on multi-gpu.
