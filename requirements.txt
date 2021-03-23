@@ -1,7 +1,8 @@
-torch
 numpy
 scipy
 tqdm
 matplotlib
-dgl
-transformers
+transformers==3.0.1
+torch==1.2.0
+pytorch-pretrained-bert==0.3.0
+dgl==0.3.0
