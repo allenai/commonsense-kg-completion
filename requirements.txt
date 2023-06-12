@@ -2,7 +2,7 @@ numpy
 scipy
 tqdm
 matplotlib
-transformers==3.0.1
+transformers==4.30.0
 torch==1.2.0
 pytorch-pretrained-bert==0.3.0
 dgl==0.3.0
